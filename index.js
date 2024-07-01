@@ -5,6 +5,22 @@ const axios = require("axios");
 
 const config = require("./config");
 
+const express = require("express");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT;
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -13,11 +29,10 @@ const client = new Client({
   ],
 });
 
-const token =
-  "MTI1NjkzOTgxMTYyNTc2MjgyNg.GkiwJc.4DYlqrq5QRGfV2ep4vMZlzBJBBDknLZHhozZJE";
-const openaiApiKey = "sk-proj-Ev2DJrIrpI0shnwmt1wXT3BlbkFJd74qIythjAcU3DoReoID";
-const channelId = "699253549929988099"; // Thay thế bằng ID của kênh thực tế
-const geminiApiKey = "AIzaSyAx2N1tzPFpEvF80jIsaQcP6qV4VzK9Obs";
+const token = process.env.TOKEN;
+const openaiApiKey = process.env.OPENAI_KEY;
+const channelId = process.env.PETNEIT_ID;
+const geminiApiKey = process.env.GEMINI_KEY;
 
 const configuration = new GoogleGenerativeAI(geminiApiKey);
 
