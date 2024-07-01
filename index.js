@@ -52,44 +52,6 @@ client.once("ready", async () => {
   }
 });
 
-const API_URL = "https://api.openai.com/v1/chat/completions";
-const API_KEY = "sk-proj-1EqPiUTzV4dcrovi6T3uT3BlbkFJNwwATgi0TBzH9YysJyxb";
-
-// Hàm gọi API OpenAI
-async function askChatGPT(question) {
-  try {
-    console.log(question);
-    if (question) {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "babbage-002",
-          messages: [{ role: "user", content: question }],
-          max_tokens: 20,
-        }),
-      });
-
-      const data = await response.json();
-
-      // Kiểm tra nếu phản hồi có cấu trúc mong đợi
-      if (data.choices && data.choices.length > 0) {
-        const reply = data.choices[0].message.content.trim(); // Truy cập nội dung phản hồi
-        return reply;
-      } else {
-        console.error("Invalid API response structure:", data);
-        return "Sorry, I couldn't get a response from ChatGPT.";
-      }
-    }
-  } catch (error) {
-    console.error("Error calling OpenAI API:", error);
-    return "Sorry, I couldn't get a response from ChatGPT.";
-  }
-}
-
 async function askGemini(question) {
   try {
     const prompt = question;
